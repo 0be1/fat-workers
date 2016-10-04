@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+                   
+        <title>Fat Web Workers</title>
+        
+        <script>
+var require = {
+    shim: {
+        'giac': {
+            exports: 'Module',
+        },
+    }
+};
+        </script>
+        
+        <style>
+            .error {
+                color: red;
+            }
+        </style>
+
+        <script async data-main="main" src="require.js"></script>
+        
+        <link rel="stylesheet" href="normalize.css"/>
+        <link rel="stylesheet" href="pub.css"/>
+        <link rel="stylesheet" href="theme.css"/>
+    </head>
+    <body>
+        <header class="counter-skip">
+            <h1 class="title">Fat <a href="https://w3c.github.io/workers/">Web Workers</a></h1>
+        </header>
+
+        <section class="abstract counter-skip">
+            <h1>Abstract</h1>
+            <p>
+            We try to find the best strategy when dealing with huge amount of Javascript code (eg. produced by emscripten), huge memory consumption and long processing time.
+            </p>
+            <h2>General terms</h2>
+            <p><a href="https://w3c.github.io/workers/">Web Workers</a></p>
+        </section>
+        
+        <h1>Introduction</h1>
+        <section>
+            <p>
+                For illustrating our purpose we have choosen the javascript compiled from native <a href="https://www-fourier.ujf-grenoble.fr/~parisse/giac/webxcas.html">Giac/Xcas</a> by emscripten.
+            </p>
+        </section>
+        
+        <h1>Spawning multiple web workers</h1>
+        <section>
+            <p>
+            Multiple web workers are spawned, each receiving a message and terminating upon completion.
+            </p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>expression</th>
+                        <th>result</th>
+                        <th>processing time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="giac">solve(x^2-3*x+2=0)</td>
+                        <td>waiting...</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="giac">csolve(x^2=2*i)</td>
+                        <td>waiting...</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="giac">solve([x+y=1,x-y=3],[x,y])</td>
+                        <td>waiting...</td>
+                        <td></td>
+                    </tr>
+                     <tr>
+                        <td class="giac">*</td>
+                        <td>waiting...</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="giac">int(1/(x^4-1))</td>
+                        <td>waiting...</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button id="multiple">Go!</button>
+            
+            <p>
+            Waiting...
+            </p>
+        </section>
+        
+        <h1>Multiplexed Web Worker</h1>
+        <section>
+            <p>
+            A single web worker receive multiple messages.
+            </p>
+        
+            <table>
+                <thead>
+                    <tr>
+                        <th>expression</th>
+                        <th>result</th>
+                        <th>processing time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="giac">solve(x^2-3*x+2=0)</td>
+                        <td>waiting...</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="giac">csolve(x^2=2*i)</td>
+                        <td>waiting...</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="giac">solve([x+y=1,x-y=3],[x,y])</td>
+                        <td>waiting...</td>
+                        <td></td>
+                    </tr>
+                     <tr>
+                        <td class="giac">*</td>
+                        <td>waiting...</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="giac">int(1/(x^4-1))</td>
+                        <td>waiting...</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button id="single">Go!</button>
+            <p>
+            Waiting...
+            </p>
+        </section>
+        
+    </body>
+</html>

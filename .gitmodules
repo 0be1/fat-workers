@@ -1,0 +1,6 @@
+[submodule "dist/pubcss"]
+	path = dist/pubcss
+	url = https://github.com/thomaspark/pubcss.git
+[submodule "dist/domReady"]
+	path = dist/domReady
+	url = https://github.com/requirejs/domReady.git
